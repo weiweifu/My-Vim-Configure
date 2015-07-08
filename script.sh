@@ -5,7 +5,7 @@ install() {
     mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
   fi
 
-  git clone https://github.com/Witcher42/vim ~/.vim
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
   if [ -f "$HOME/.vimrc" ]; then
     mv ~/.vimrc ~/.vimrc.`date +%Y%m%d%H%M%S`
