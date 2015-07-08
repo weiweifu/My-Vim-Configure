@@ -1,8 +1,9 @@
 #!/bin/sh
 
 install() {
-  if [ -d "$HOME/.vim" ]; then
-    mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
+  if [ -d "$HOME/.vim/bundle/" ]; then
+   rm -fr  ~/.vim/bundle
+#    mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
   fi
 
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -11,13 +12,8 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     mv ~/.vimrc ~/.vimrc.`date +%Y%m%d%H%M%S`
   fi
 
-  #ln -s ~/.vim/vimrc ~/.vimrc
-  cp ~/.vim/vimrc.template ~/.vimrc
-
-  cd ~/.vim
-
-  git submodule init
-  git submodule update
+# copy .vimrc file from remote sever
+curl "https://raw.githubusercontent.com/weiweifu/My-Vim-Configure/master/vimrc" >.vimrc
 
   vim +BundleInstall! +qall! </dev/tty
 
@@ -25,7 +21,6 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
 
 update() {
-  (cd ~/.vim; git pull)
   vim +BundleClean +BundleInstall +qall! </dev/tty
 }
 
