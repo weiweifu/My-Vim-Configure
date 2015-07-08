@@ -1,8 +1,9 @@
 #!/bin/sh
 
 install() {
-  if [ -d "$HOME/.vim/bundle/" ]; then
-   rm -fr  ~/.vim/bundle
+#  if [ -d "$HOME/.vi/bund le/" ]; then
+if [-d "$HOME/.vim/bundle/"]; then
+     rm -fr  ~/.vim/bundle
 #    mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
   fi
 
