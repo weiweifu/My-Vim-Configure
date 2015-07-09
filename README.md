@@ -14,5 +14,5 @@ curl "https://github.com/weiweifu/My-Vim-Configure/blob/master/script.sh" |bash 
 ### UPDATE
 
 ```
-curl "https://github.com/weiweifu/My-Vim-Configure/blob/master/script.sh" |bash -s install
+curl "https://github.com/weiweifu/My-Vim-Configure/blob/master/script.sh" |bash -s update
 ```
