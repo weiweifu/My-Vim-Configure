@@ -8,13 +8,19 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'bruno-/vim-alt-mappings'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails.git'
+Plugin 'Raimondi/delimitMate'
+
 Plugin 'kien/ctrlp.vim'
+   nmap <c-p><c-p> :CtrlP <cr>
+   nmap <c-p><c-o> :CtrlPCurWD <cr>
 Plugin 'tomtom/tcomment_vim'
-Plugin 'benjaminwhite/Benokai'
 Plugin 'fsouza/go.vim'
-Plugin 'wting/rust.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'rizzatti/funcoo.vim'
+Plugin 'rizzatti/dash.vim'
 Plugin 'mtth/scratch.vim'
 Plugin 'greplace.vim'
 Plugin 'editorconfig/editorconfig-vim'
@@ -22,6 +28,45 @@ Plugin 'mcandre/Conque-Shell'
 Plugin 'The-NERD-Commenter'
 Plugin 'matchit.zip'
 Plugin 'tomasr/molokai'
+Plugin 'Lokaltog/vim-easymotion'
+    let g:EasyMotion_leader_key = '<Leader><Leader>'
+    " usage: <Leader><Leader>fx
+    " usage: <Leader><Leader>w
+Plugin 'junegunn/vim-easy-align'
+    " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+     vmap <Enter> <Plug>(EasyAlign)
+    " " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+     nmap ga <Plug>(EasyAlign)
+    " usage: select & <Enter>
+Plugin 'terryma/vim-multiple-cursors'
+    let g:multi_cursor_use_default_mapping = 1
+    " let g:multi_cursor_next_key='<C-n>'
+    " let g:multi_cursor_prev_key='<C-p>'
+    " let g:multi_cursor_skip_key='<C-x>'
+    " let g:multi_cursor_quit_key='<Esc>'
+    " usage: select & <C-n>
+" Plugin 'SirVer/ultisnips'
+    " let g:UltiSnipsExpandTrigger="<tab>"
+    " let g:UltiSnipsJumpForwardTrigger="<tab>"
+    " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " "let g:UltiSnipsSnippetDirectories  = ["snips"]
+    " function! g:UltiSnips_Complete()
+        " call UltiSnips#ExpandSnippet()
+        " if g:ulti_expand_res == 0
+            " if pumvisible()
+                " return "\<C-n>"
+            " else
+                " call UltiSnips#JumpForwards()
+                " if g:ulti_jump_forwards_res == 0
+                   " return "\<TAB>"
+                " endif
+            " endif
+        " endif
+        " return ""
+    " endfunction
+    " au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+" Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
