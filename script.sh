@@ -1,10 +1,10 @@
 #!/bin/sh
 
 install() {
-if     [- d  "$HOME/.vim/bundle/"]; then
+if [- d  "$HOME/.vim/bundle/"]; then
      rm -fr  ~/.vim/bundle
 #    mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
-  fi
+fi
 
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -15,13 +15,13 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # copy .vimrc file from remote sever
 curl "https://raw.githubusercontent.com/weiweifu/My-Vim-Configure/master/vimrc" >.vimrc
 
-  vim +BundleInstall! +qall! </dev/tty
+vim +BundleInstall! +qall! </dev/tty
 
-  #(cd ~/.vim/bundle/YouCompleteMe; ./install.sh --clang-completer)
+#(cd ~/.vim/bundle/YouCompleteMe; ./install.sh --clang-completer)
 }
 
 update() {
-  vim +BundleClean +BundleInstall +qall! </dev/tty
+vim +BundleClean +BundleInstall +qall! </dev/tty
 }
 
 for arg in "$@"
