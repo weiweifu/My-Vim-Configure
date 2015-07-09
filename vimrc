@@ -21,6 +21,7 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'mcandre/Conque-Shell'
 Plugin 'The-NERD-Commenter'
 Plugin 'matchit.zip'
+Plugin 'tomasr/molokai'
 
 call vundle#end()
 
@@ -58,7 +59,7 @@ set fileencoding=utf-8
 set encoding=utf-8
 set termencoding=utf-8
 set backspace=indent,eol,start
-set guifont=Monospace\ 12,Consolas\ 12
+set guifont=Courier\ 10\ Pitch\ 13,Monospace\ 12,Consolas\ 12
 " Show line numbers
 set number
 " Show column numbers
@@ -74,6 +75,8 @@ set expandtab
 set sw=2
 set sts=2
 
+set background=light
+colorscheme desert
 
 " Enable OS mouse clicking and scrolling
 "
@@ -99,6 +102,7 @@ vnoremap <silent> <C-a> ^
 vnoremap <silent> <C-e> $
 inoremap <silent> <C-a> <esc>^i
 inoremap <silent> <C-e> <esc>$i
+vmap <C-c> "+y
 
 " Fix Alt key in MacVIM GUI
 " TODO - Fix in MacVIM terminal
