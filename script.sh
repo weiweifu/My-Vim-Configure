@@ -1,7 +1,7 @@
 #!/bin/sh
 
 install() {
-if [- d  "$HOME/.vim/bundle/"]; then
+if [ -d  "$HOME/.vim/bundle/" ]; then
      rm -fr  ~/.vim/bundle
 #    mv ~/.vim ~/.vim.`date +%Y%m%d%H%M%S`
 fi
@@ -13,7 +13,7 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
 
 # copy .vimrc file from remote sever
-curl "https://raw.githubusercontent.com/weiweifu/My-Vim-Configure/master/vimrc" >.vimrc
+curl "https://raw.githubusercontent.com/weiweifu/My-Vim-Configure/master/vimrc" >~/.vimrc
 
 vim +BundleInstall! +qall! </dev/tty
 
