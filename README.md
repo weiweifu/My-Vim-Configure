@@ -7,7 +7,7 @@ This is my VIM configuration. You can have a try by running the installation com
 ### INSTALLATION
 
 ```
-curl "https://github.com/weiweifu/My-Vim-Configure/blob/master/script.sh" |bash -s install
+curler ”https://raw.githubusercontent.com/weiweifu/My-Vim-Configure/master/script.sh" |bash -s install
 
 ```
 
