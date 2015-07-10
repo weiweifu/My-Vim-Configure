@@ -249,3 +249,91 @@ let g:ConqueTerm_CWInsert = 1
 " Replace shell with Conque-Shell
 set nocp
 cabbrev sh sh<C-\>esubstitute(getcmdline(), '^sh', 'ConqueTerm bash', '')<cr>
+
+" For Matlab
+" 设置matlab语言的ctags
+autocmd FileType matlab map <F8> :!Ctags --langdef=matlab --langmap=matlab.m --regex-matlab="/^function[ \t]*\\[.*\\][ \t]*=[ \t]*([a-zA-Z0-9_]+)/\1/f,function/" --regex-matlab="/^function[ \t]*[a-zA-Z0-9_]+[ \t]*=[ \t]*([a-zA-Z0-9_]+)/\1/f,function/" --regex-matlab="/^function[ \t]*([a-zA-Z0-9_]+)[^=]*$/\1/f,function/" --regex-matlab="/^.*\s*function\s*(\w+)\s*=\s*(\w+)\s*\(.*$/\2/f,function/" --regex-matlab="/^.*\s*function\s*(\w+)\s*\(.*$/\1/f,function/" --languages=matlab --extra=+q --excmd=pattern -R .<CR>:call EditTagFile()<CR>
+" 编辑Tag文件
+function EditTagFile()
+    exe ':e tags'
+    for lineNum in range(line('^'), line('$'))
+        " 得到每一行的内容
+        let lineStr = getline(lineNum)
+        if matchstr(lineStr, '^!') == ""
+            let fileName = matchstr(lineStr, '\v\\\zs((\w|_)*)\ze(\.m)')
+            let tagName = matchstr(lineStr, '\v^\zs(\S*)\ze(\t)')
+            if fileName != tagName
+                let newLineStr = fileName.'.'.lineStr
+                call setline(lineNum, newLineStr)
+            endif
+        else
+            if matchstr(lineStr, '^!_TAG_FILE_SORTED') != ""
+                let startStr = matchstr(lineStr,'\v\zs(^)\S*\ze(\t)')
+                let endStr = matchstr(lineStr, '\v\d\t\zs(.*)\ze($)')
+                let newLineStr = startStr."\t"."0"."\t".endStr
+                call setline(lineNum, newLineStr)
+            endif
+        endif
+    endfor
+    exe ':w'
+    exe ':bdelete tags'
+endfunction
+autocmd FileType matlab map <C-]> :call MyFindTag() <CR>zRz.
+" 搜索tag
+function MyFindTag()
+    let tagFullName = expand("<cWORD>")
+    if matchstr(tagFullName, '\v\(') != ""
+        let tagFullName = matchstr(tagFullName, '\v(\w|_|\.)*\ze(\()')
+    end
+    let tagName = expand("<cword>")
+    if tagName == tagFullName
+        " 是否已在函数定义位置
+        let lineStrTemp = getline('.')
+        if matchstr(lineStrTemp, '\v^\s*\zs(function)\ze(\s)') != ""
+            return
+        else
+            exe ':ta '.tagName
+        endif
+    else
+        let objName = matchstr(tagFullName, '\v\zs(.*)\ze(\.)')
+        let funcName = matchstr(tagFullName, '\v\.\zs(\w+)')
+        " 类中定义的子函数
+        if objName == "obj"
+            for lineNumTemp in range(line('^'), line('$'))
+                let lineStrTemp = getline(lineNumTemp)
+                if matchstr(lineStrTemp, '\v^\s*\zs(classdef)\ze(\s)') != ""
+                    let className = matchstr(lineStrTemp, '\v^\s*classdef\s*\zs((\w|_)*)')
+                    " exe ':tag '.tagName
+                    break
+                endif
+            endfor
+        else
+            " 得到类的定义函数
+            let endLineNum = line('.')
+            while 1
+                let isFindName = 0
+                exe ':echo '.isFindName
+                for lineNum in range(line('^'), endLineNum - 1)
+                    " 得到每一行的内容
+                    let lineStr = getline(lineNum)
+                    if matchstr(lineStr, '\v^\s*\zs('.objName.')\s*\=') != ""
+                        if matchstr(lineStr, '\v^\s*\zs('.objName.')\s*\=\s*'.objName.'\.') == ""
+                            " 得到类名字
+                            let objName = matchstr(lineStr, '\v\=\s*\zs((\w|_)*)\ze(\(|;)')
+                            let endLineNum = lineNum
+                            let isFindName = 1
+                            break
+                        end
+                    endif
+                endfor
+                if isFindName == 0 || endLineNum <= 0
+                    let className = objName
+                    break
+                endif
+            endwhile
+        endif
+        " 得到要搜索的tag的名字
+        let tagName = className.'.'.funcName
+        exe ':tag '.tagName
+    endif
+endfunction
